@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script>
+	<link rel="stylesheet" href="style.css">
+	<script>
+$(document).ready(function(){
+    $("#perubutton").click(function(){
+        $.get("/peru", function(data, status){
+		$("#city").text(data);
+        });
+    });
+});
+$(document).ready(function(){
+    $("#ausbutton").click(function(){
+        $.get("http://127.0.0.1:5984/country/countriesDB/", function(data, status){
+		$("#city").text(data.content);
+        });
+    });
+});
+$(document).ready(function(){
+    $("#canbutton").click(function(){
+        $.get("/canada", function(data, status){
+		$("#city").text(data);
+        });
+    });
+});
+// Function to Call the .asp file
+$(document).ready(function(){
+    $("button").click(function(){
+        $.get("/static/countries.asp", function(data, status){
+            alert("Data: " + data + "\nStatus: " + status);
+        });
+    });
+});
+//function to call the .php file
+function showHint(str) {
+    if (str.length == 0) { 
+        document.getElementById("#filter").innerHTML = "";
+        return;
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("#filter").innerHTML = this.responseText;
+            }
+        }
+        xmlhttp.open("GET", "/static/countries.php"+str, true);
+        xmlhttp.send();
+    }
+}
+// Calling html templates
+	$(document).ready(function(){
+    $("button7").click(function(){
+        $("#hello").load("/hello");
+    });
+});
+	$(document).ready(function(){
+    $("button8").click(function(){
+        $("#hello").load("/NewZealand");
+    });
+});
+</script>
+  <style>
+  .bg-1 { 
+      background-color: red;
+      color: white;
+  }
+  div {
+    background-color: green;
+}
+h1 {
+background-color: grey;
+}
+  </style>
+   </head>
+   <body>
+   <nav class="navbar navbar-inverse">
+  <ul class="nav navbar-nav">
+    <li><a href="#capitals">Capitals</a></li>
+    <li><a href="#filter">World Cup</a></li>
+  </ul>
+</nav>
+   <div class="bg-1">
+  <div class="container text-center">
+    <h1>Country</h1>
+    <img src="/static/countries.jpg" class="img-circle" alt="countries" width="350" height="350">
+    <h1>Information</h1>
+  </div>
+</div>
+
+<div id ="capital" class="container text-center">
+  <h2>Click on the Country to Find Out It's Capital City!</h2> 
+   <input type="submit" name="Peru" id="perubutton" value="Peru" class="btn btn-primary">
+	   <input type="submit" name="Australia" id="ausbutton" value="Australia" class="btn btn-primary">
+    <input type="submit" name="Canada" id="canbutton" value="Canada" class="btn btn-primary">
+	</div>
+   <div id = "city" style="text-align: center">
+</div>
+<button>Click Here Find Out My Favourite Country!</button>
+<div style="text-align: center">
+<p><b>World Cup Winning Countries:</b></p>
+<form> 
+Country: <input type="text" onkeyup="showHint(this.value)">
+</form>
+<p>Suggestions: <span id="filter"></span></p>
+</div>
+<div id = "filter">
+
+
+<div id="hello" style="text-align: center">
+   <input type="submit" name="button7" id="button7" value="Ireland" class="btn btn-primary">
+   <div id="NewZealand" style="text-align: center">
+      <input type="submit" name="button8" id="button8" value="New Zealand" class="btn btn-primary">
+   </body> 
+   </html>
+   
+   
+   
+
